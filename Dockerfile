@@ -9,6 +9,7 @@ RUN apt-get update -y && \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
     && ln -s /dev/fd/1 /var/log/apt-cacher-ng/apt-cacher.log \
     && ln -s /dev/fd/1 /var/log/apt-cacher-ng/apt-cacher.err \ 
-    && ln -s /dev/fd/1 /var/log/apt-cacher-ng/apt-cacher.dbg
+    && ln -s /dev/fd/1 /var/log/apt-cacher-ng/apt-cacher.dbg \
+    && echo "AllowUserPorts: 80 443 3242" >> /etc/apt-cacher-ng/acng.conf
 
 CMD ["/bin/sh", "-c", "/usr/sbin/apt-cacher-ng -c /etc/apt-cacher-ng pidfile=/var/run/apt-cacher-ng/pid SocketPath=/var/run/apt-cacher-ng/socket foreground=1"]
